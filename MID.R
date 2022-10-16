@@ -16,3 +16,15 @@ for(v in var.conti){
 }
 
 sapply(a, class)
+
+
+##Q2
+a[, lapply(.SD, function(x){c(mean = mean(x), sd = sd(x))}), keyby = .(EXMD_BZ_YYYY), .SDcols = c("WSTC", "BMI")]
+
+##Q3
+p <- ggboxplot(data = a, x = "EXMD_BZ_YYYY", y = "FBS")
+
+plot_file <- read_pptx() %>% 
+  add_slide %>% 
+  ph_with(dml(ggobj = p), location = ph_location_type(type = "body"))
+print(plot_file, target = "plot_file.pptx")
